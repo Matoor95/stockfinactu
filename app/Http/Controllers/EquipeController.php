@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Equipe;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class EquipeController extends Controller
 {
@@ -15,8 +16,8 @@ class EquipeController extends Controller
     public function index()
     {
         //
-        $equipes=Equipe::with('users')->get();
-        return view('Equipes.index',compact('equipes'));
+        $equipes = Equipe::with('users')->get();
+        return view('Equipes.index', compact('equipes'));
     }
 
     /**
@@ -27,6 +28,7 @@ class EquipeController extends Controller
     public function create()
     {
         //
+        return view('Equipes.form');
     }
 
     /**
@@ -38,6 +40,13 @@ class EquipeController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'location' => 'required|string|max:15'
+        ]);
+        Equipe::create($request->all());
+        Alert::success('','Equipe ajouté avec succés');
+
+        return redirect()->route('equipes.index');
     }
 
     /**
@@ -59,7 +68,9 @@ class EquipeController extends Controller
      */
     public function edit($id)
     {
-        //
+
+        $equipes=Equipe::find($id);
+        return view ('Equipes.form',compact('equipes'));
     }
 
     /**
@@ -72,6 +83,10 @@ class EquipeController extends Controller
     public function update(Request $request, $id)
     {
         //
+        $equipes=Equipe::find($id);
+        $equipes->update($request->all());
+
+        return redirect()->route('equipes.index');
     }
 
     /**
@@ -83,5 +98,6 @@ class EquipeController extends Controller
     public function destroy($id)
     {
         //
+
     }
 }

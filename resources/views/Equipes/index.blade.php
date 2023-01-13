@@ -14,10 +14,9 @@
                             <thead>
                                 <tr>
                                     <th scope="col">ID</th>
-                                    <th scope="col">Nom de la categorie</th>
-                                    <th scope="col">Image</th>
+                                    <th scope="col">Pays</th>
                                     <th scope="col">Date de creation</th>
-                                    <th scope="col">Nombre de produits</th>
+                                    <th scope="col">Nombre d'employee</th>
                                     <th>Action</th>
 
 
@@ -34,10 +33,7 @@
                                             <div class="row align-item ">
 
 
-                                                <div class="p-2">
-                                                    <a href="{{ route('equipes.show', $equipe) }}"
-                                                        class="btn btn-info"> <i class="fas fa-eye"></i></a>
-                                                </div>
+
                                                 <div class="p-2"> <a
                                                         href="{{ route('equipes.edit', $equipe->id) }}"
                                                         class="btn btn-warning"><i class="fas fa-edit"></i></a>

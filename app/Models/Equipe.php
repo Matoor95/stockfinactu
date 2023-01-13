@@ -15,6 +15,7 @@ class Equipe extends Model
     *
     * @return \Illuminate\Database\Eloquent\Relations\HasMany
     */
+    protected $fillable=['location'];
    public function users()
    {
        return $this->hasMany(User::class);

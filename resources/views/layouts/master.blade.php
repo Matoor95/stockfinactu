@@ -319,8 +319,7 @@
                 @yield('content')
 
 
-                {{-- @include('sweetalert::alert') --}}
-
+                @include('sweetalert::alert')
 
                 <!-- /.row -->
 

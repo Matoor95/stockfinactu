@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EquipeController;
 
 /*
@@ -18,3 +19,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::resource('equipes', EquipeController::class);
+Route::resource('users', UserController::class);
+

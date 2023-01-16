@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipe;
+use App\Models\User;
 use Illuminate\Http\Request;
-use RealRashid\SweetAlert\Facades\Alert;
 
-class EquipeController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +16,9 @@ class EquipeController extends Controller
     public function index()
     {
         //
-        $equipes = Equipe::with('users')->get();
-        return view('Equipes.index', compact('equipes'));
-        // return response()->json($equipes,200);
+        $users=User::with('equipes')->get();
+        // return response()->json($equipes);
+        return view('users.index',compact('users'));
     }
 
     /**
@@ -29,7 +29,8 @@ class EquipeController extends Controller
     public function create()
     {
         //
-        return view('Equipes.form');
+        $equipes=Equipe::pluck('location','id');
+        return view('users.form',compact('equipes'));
     }
 
     /**
@@ -41,13 +42,6 @@ class EquipeController extends Controller
     public function store(Request $request)
     {
         //
-        $this->validate($request, [
-            'location' => 'required|string|max:15'
-        ]);
-        Equipe::create($request->all());
-        Alert::toast('Equipe ajoutée avec succes', 'success');
-
-        return redirect()->route('equipes.index');
     }
 
     /**
@@ -69,9 +63,7 @@ class EquipeController extends Controller
      */
     public function edit($id)
     {
-
-        $equipes=Equipe::find($id);
-        return view ('Equipes.form',compact('equipes'));
+        //
     }
 
     /**
@@ -84,11 +76,6 @@ class EquipeController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $equipes=Equipe::find($id);
-        $equipes->update($request->all());
-        Alert::toast('Equipe modifiée avec succes', 'success');
-
-        return redirect()->route('equipes.index');
     }
 
     /**
@@ -100,10 +87,5 @@ class EquipeController extends Controller
     public function destroy($id)
     {
         //
-        $equipe=Equipe::find($id);
-        $equipe->delete($id);
-        return redirect()->back();
-
-
     }
 }
